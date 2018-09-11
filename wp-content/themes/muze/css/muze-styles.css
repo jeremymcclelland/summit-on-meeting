@@ -1251,8 +1251,8 @@ strong {
   right: 0;
 }
 .page-homepage section.amenities {
-  background-image: url('../images/home-lounge.jpg');
-  background-position: bottom center;
+  background-image: url('../images/home-clubhouse.jpg');
+  background-position: center center;
   padding: 130px 0;
 }
 .page-homepage section.amenities-images {

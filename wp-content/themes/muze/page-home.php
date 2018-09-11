@@ -19,7 +19,7 @@
 				<div class="small-12 columns">
 					<?php the_content(); ?>
 					<div class="home-page-flash">
-						Visit our<br />leasing center at<br /><span><a href="https://goo.gl/maps/zGs2KGdePPn" target="_blank">2350<br />Guadalupe St, Austin, TX</a></span>
+						Visit our<br />leasing center at<br /><span><a href="https://goo.gl/maps/zGs2KGdePPn" target="_blank">363<br />King Street, Charleston, SC</a></span>
 					</div>
 				</div>
 			</div>
