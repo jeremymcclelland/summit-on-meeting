@@ -1749,8 +1749,10 @@ Next background check:  <?php if ( wp_next_scheduled( 'cff_cache_cron' ) ) {
                         ?>
 Locale:                 <?php echo get_option( 'cff_locale' ) ."\n"; ?>
 Timezone:               <?php $options = get_option( 'cff_style_settings', array() );
-                        echo $options[ 'cff_timezone' ] ."\n"; ?>
+                        
+                        if( isset( $options[ 'cff_timezone' ] ) ) echo $options[ 'cff_timezone' ] ."\n"; ?>
 
+<?php if( isset( $options[ 'cff_feed_width' ] ) ) { ?>
 ## CUSTOMIZE - GENERAL: ##
 Feed Width => <?php echo $options[ 'cff_feed_width' ] ."\n"; ?>
 Responsive => <?php echo $options[ 'cff_feed_width_resp' ] ."\n"; ?>
@@ -1971,9 +1973,30 @@ Modified text strings:
 <?php if($options['cff_translate_year'] != 'year'){ ?>Year => <?php echo $options['cff_translate_year'] ."\n"; ?><?php } ?>
 <?php if($options['cff_translate_years'] != 'years'){ ?>Years => <?php echo $options['cff_translate_years'] ."\n"; ?><?php } ?>
 <?php if($options['cff_translate_ago'] != 'ago'){ ?>Ago => <?php echo $options['cff_translate_ago'] ."\n"; ?><?php } ?>
+<?php } else {
+echo "\n"."## CUSTOMIZE ##"."\n";
+echo '-----------------------------'."\n";
+echo "Customize Settings not saved."."\n";
+echo '-----------------------------'."\n";
+} ?>
 
 ## EXTENSIONS: ##
-<?php if (WPW_SL_ITEM_NAME == 'Custom Facebook Feed WordPress Plugin Smash') echo "Extensions Plugin:"      . get_option('cff_extensions_status') ."\n\n"; ?>
+<?php if (WPW_SL_ITEM_NAME == 'Custom Facebook Feed WordPress Plugin Smash'){
+    echo "'Extensions' Plugin Installed - Active extensions:" . "\n";
+    foreach ( get_option('cff_extensions_status') as $key => $value ) {
+        if( $value == 'on' ){
+            if( $key == 'cff_extensions_multifeed_active' ) echo 'Multifeed, ';
+            if( $key == 'cff_extensions_date_range_active' ) echo 'Date Range, ';
+            if( $key == 'cff_extensions_featured_post_active' ) echo 'Featured Post, ';
+            if( $key == 'cff_extensions_album_active' ) echo 'Album, ';
+            if( $key == 'cff_extensions_masonry_columns_active' ) echo 'Masonry, ';
+            if( $key == 'cff_extensions_carousel_active' ) echo 'Carousel, ';
+            if( $key == 'cff_extensions_reviews_active' ) echo 'Reviews, ';
+        }
+    }
+    echo "\n\n";
+}
+?>
 <?php if($cff_ext_date_active){
     echo "Date Range Extension:" ."\n";
     echo "Date Range From:              ". get_option( 'cff_date_from' ) ."\n";

@@ -3,7 +3,7 @@ Author: Smash Balloon
 Support Website: http://smashballoon/custom-facebook-feed/
 Requires at least: 3.0
 Tested up to: 4.9
-Version: 3.5.2
+Version: 3.5.3
 License: Non-distributable, Not for resale
 
 The Custom Facebook Feed allows you to display a completely customizable Facebook feed of any public Facebook page on your website.
@@ -34,6 +34,10 @@ Display a **completely customizable**, **responsive** and **search engine crawla
 5. You can display multiple feeds of different Facebook pages by specifying a Page ID directly in the shortcode: [custom-facebook-feed id=smashballoon num=5].
 
 == Changelog ==
+= 3.5.3 =
+* Fix: Removed a PHP notice which would appear under certain circumstances
+* Fix: Fixed an error in the System Info if the customize settings weren't saved successfully
+
 = 3.5.2 =
 * Fix: If a visitor posts to your page then their avatar will now be displayed again
 * Fix: If an author profile link is unavailable then it will now link to the post instead

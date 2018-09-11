@@ -2481,6 +2481,7 @@ function cff_get_post_set_html( $feed_options, $json_data_arr ) {
                 }                
             }
 
+            $numeric_page_id = '';
             if ( ($cff_show_only_others || $show_posts_by == 'others') && count($fbdata_string) > 0 && !$cff_reviews ) {
                 //Get the numeric ID of the page so can compare it to the author of each post
                 $first_post_id = explode("_", $fbdata_string[0]->id);
@@ -2923,7 +2924,7 @@ function cff_get_post_set_html( $feed_options, $json_data_arr ) {
                                     //Link to the post if it's a visitor post as profile link no longer available
                                     $cff_author_link_el = 'a';
                                     $cff_author_link_atts = ' href="https://facebook.com/' . $cff_from_id . '" '.$target.$cff_nofollow.' '.$cff_author_styles;
-                                    if( $cff_from_id != $numeric_page_id ){
+                                    if( $cff_from_id != $numeric_page_id && !empty($numeric_page_id) ){
                                         $cff_author_link_el = 'span';
                                         $cff_author_link_atts = '';
                                     }
@@ -2949,7 +2950,7 @@ function cff_get_post_set_html( $feed_options, $json_data_arr ) {
 
                                     //Author image
                                     //Get author avatar of visitor
-                                    if( $cff_from_id != $numeric_page_id ){
+                                    if( $cff_from_id != $numeric_page_id && !empty($numeric_page_id) ){
                                         //Check whether the profile pic exists in a transient
                                         $cff_pic_transient_name = "fb_avatar_" . $cff_from_id;
                                         if ( false === get_transient( $cff_pic_transient_name ) ) {
