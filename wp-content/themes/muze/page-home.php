@@ -155,15 +155,15 @@
 	<section class="pre-footer">
 		<div class="container row">
 			<div class="small-12 large-4 columns social-feed">
-				<h3><i class="fa fa-twitter"></i> Tweets <span>by @MuzeATX</span></h2>
+				<h3><i class="fa fa-twitter"></i> Tweets <span>by @SummitPlace1</span></h2>
 				<?php echo do_shortcode( '[custom-twitter-feeds]' ); ?>
 			</div>
 			<div class="small-12 large-4 columns social-feed">
-				<h3><i class="fa fa-instagram"></i> Instagram <span>by @MuzeATX</span></h2>
+				<h3><i class="fa fa-instagram"></i> Instagram <span>by @SummitPlace1</span></h2>
 				<?php echo do_shortcode( '[instagram-feed]' ); ?>
 			</div>
 			<div class="small-12 large-4 columns social-feed">
-				<h3><i class="fa fa-facebook-square"></i> Facebook <span>by @MuzeATX</span></h2>
+				<h3><i class="fa fa-facebook-square"></i> Facebook <span>by @SummitPlace1</span></h2>
 				<?php echo do_shortcode( '[custom-facebook-feed]' ); ?>
 			</div>
 		</div>
