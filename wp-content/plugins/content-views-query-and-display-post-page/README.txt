@@ -3,8 +3,8 @@ Contributors: pt-guy
 Donate link: https://www.contentviewspro.com/?utm_source=wporg&utm_medium=link&utm_campaign=donate
 Tags: post grid, grid plugin, grid, latest post, display post, post, page, category, responsive, list, thumbnail
 Requires at least: 3.3
-Tested up to: 4.9.5
-Stable tag: 2.0.2
+Tested up to: 4.9.8
+Stable tag: 2.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -163,8 +163,18 @@ If you are using "Your latest posts" as home page, you should paste this code `<
 
 == Changelog ==
 
+= 2.1.1 - 2018/09/22 =
+* Fix: No line-break in Text widget caused by a change in version 2.1
+
+= 2.1 - 2018/09/21 =
+* Update: SEO friendly URL for non-Ajax pagination (change from /?_page=N to /pages/N)
+* Update: Prevent private taxonomies from being shown in meta fields
+* Update: Adjust color of the Content Views icon in Dashboard menu, only highlight on open/click
+* Update: Prevent empty p tag from being added to View output in Text widget
+* Update: Some other updates & improvements
+
 = 2.0.2 - 2018/04/09 =
-* Update: Use SEO friendly URL for normal pagination. Redirect /?vpage=NUMBER to new friendly URL depending on which page the pagination is showing on
+* Update: Redirect /?vpage=NUMBER to new URL depending on which page the pagination is showing on
 * Compatible Fix: Excerpt of posts created by the Cornerstone Page Builder plugin is incorrect
 * Tweak: Update content of the Settings page and description of some settings
 

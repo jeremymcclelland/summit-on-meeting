@@ -48,6 +48,11 @@ class WPForms_Field_Phone extends WPForms_Field {
 			$properties['inputs']['primary']['data']['inputmask'] = "'mask': '(999) 999-9999'";
 		}
 
+		// Input primary: RTL support for input masks.
+		if ( is_rtl() ) {
+			$properties['inputs']['primary']['attr']['dir'] = 'rtl';
+		}
+
 		return $properties;
 	}
 

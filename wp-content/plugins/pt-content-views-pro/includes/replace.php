@@ -237,15 +237,17 @@ class CVP_Replace_Layout {
 		} else {
 			$wp_query		 = $this->origin_query;
 			$view_settings	 = PT_CV_Functions::view_get_settings( $view_id );
-
-			// When not enabling pagination, prevent existing Limit value in View from showing more/less posts, and causing 404 error
-			if ( empty( $view_settings[ PT_CV_PREFIX . 'enable-pagination' ] ) ) {
+			$no_override	 = ($this->filter_settings != 'use_filter_settings');
+			// When not enabling pagination & not replace result, prevent existing Limit value in View from showing more/less posts, and causing 404 error
+			if ( empty( $view_settings[ PT_CV_PREFIX . 'enable-pagination' ] ) && $no_override ) {
 				$view_settings[ PT_CV_PREFIX . 'limit' ] = $wp_query->query_vars[ 'posts_per_page' ];
 			}
 
 			if ( !empty( $view_settings[ PT_CV_PREFIX . 'enable-pagination' ] ) || ($view_settings[ PT_CV_PREFIX . 'view-type' ] === 'glossary') ) {
-				$view_settings[ PT_CV_PREFIX . 'limit' ] = '-1';
-				$this->enable_pagination				 = true;
+				if ( $no_override ) {
+					$view_settings[ PT_CV_PREFIX . 'limit' ] = '-1';
+				}
+				$this->enable_pagination = true;
 			}
 
 			$this->modify_query( $wp_query, $view_settings );

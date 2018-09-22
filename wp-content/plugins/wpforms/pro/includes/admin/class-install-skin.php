@@ -12,18 +12,6 @@
 class WPForms_Install_Skin extends WP_Upgrader_Skin {
 
 	/**
-	 * Primary class constructor.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $args Empty array of args (we will use defaults).
-	 */
-	public function __construct( $args = array() ) {
-
-		parent::__construct();
-	}
-
-	/**
 	 * Set the upgrader object and store it as a property in the parent class.
 	 *
 	 * @since 1.0.0
@@ -35,18 +23,6 @@ class WPForms_Install_Skin extends WP_Upgrader_Skin {
 		if ( is_object( $upgrader ) ) {
 			$this->upgrader =& $upgrader;
 		}
-	}
-
-	/**
-	 * Set the upgrader result and store it as a property in the parent class.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param object $result The result of the install process.
-	 */
-	public function set_result( $result ) {
-
-		$this->result = $result;
 	}
 
 	/**
@@ -79,7 +55,6 @@ class WPForms_Install_Skin extends WP_Upgrader_Skin {
 		if ( ! empty( $errors ) ) {
 			wp_send_json_error( $errors );
 		}
-
 	}
 
 	/**
@@ -91,5 +66,15 @@ class WPForms_Install_Skin extends WP_Upgrader_Skin {
 	 * @param string $string The feedback string.
 	 */
 	public function feedback( $string ) {
+	}
+
+	/**
+	 * Empty out JavaScript output that calls function to decrement the update counts.
+	 *
+	 * @since 1.4.9
+	 *
+	 * @param string $type Type of update count to decrement.
+	 */
+	public function decrement_update_count( $type ) {
 	}
 }

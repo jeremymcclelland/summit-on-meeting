@@ -118,3 +118,10 @@ function cvp_theme_sfilter_type_mobile( $args ) {
   }
   return $args;
 }
+
+function my_acf_init() {
+  
+  acf_update_setting('google_api_key', 'AIzaSyC64TkUxHsuNgJPDKpYZtH6mYNR_WAr5iU');
+}
+
+add_action('acf/init', 'my_acf_init');

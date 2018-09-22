@@ -25,12 +25,21 @@ function cvp_troubleshoot_fb_share_wrong_img() {
 }
 
 add_action( PT_CV_PREFIX_ . 'before_query', 'cvp_troubleshoot_action_before_query' );
+add_action( PT_CV_PREFIX_ . 'after_query', 'cvp_troubleshoot_action_after_query' );
 function cvp_troubleshoot_action_before_query() {
+	cvp_troubleshoot_action___query( 'remove_action' );
+}
+
+function cvp_troubleshoot_action_after_query() {
+	cvp_troubleshoot_action___query( 'add_action' );
+}
+
+function cvp_troubleshoot_action___query( $function ) {
 	/* Fix: invalid output because of query was modified by plugin "Woocommerce Exclude Categories PRO"
 	 * @since 4.2
 	 */
 	if ( function_exists( 'wctm_pre_get_posts_query' ) ) {
-		remove_action( 'pre_get_posts', 'wctm_pre_get_posts_query' );
+		$function( 'pre_get_posts', 'wctm_pre_get_posts_query' );
 	}
 
 	/** Fix: The Events Calendar with WPML (when suppress filter = false), the event plugin injects code to show only upcoming events,
@@ -38,7 +47,7 @@ function cvp_troubleshoot_action_before_query() {
 	 * @since 5.3.4
 	 */
 	if ( class_exists( 'Tribe__Events__Query' ) && method_exists( 'Tribe__Events__Query', 'pre_get_posts' ) ) {
-		remove_action( 'pre_get_posts', array( 'Tribe__Events__Query', 'pre_get_posts' ), 50 );
+		$function( 'pre_get_posts', array( 'Tribe__Events__Query', 'pre_get_posts' ), 50 );
 	}
 }
 

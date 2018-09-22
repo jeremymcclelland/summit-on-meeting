@@ -2839,7 +2839,7 @@ if ( !class_exists( 'PT_CV_Hooks_Pro' ) ) {
 				$taxonomies_to_get = isset( $dargs[ 'taxonomy-filter' ] ) ? $dargs[ 'taxonomy-filter' ] : NULL;
 
 				// Get selected terms or all terms of selected taxonomies
-				$selected_terms_of_taxonomies = apply_filters( PT_CV_PREFIX_ . 'terms_to_filter', (array) PT_CV_Functions_Pro::get_selected_terms( $taxonomies_to_get ) );
+				$selected_terms_of_taxonomies = (array) PT_CV_Functions_Pro::get_selected_terms( $taxonomies_to_get );
 
 				if ( $selected_terms_of_taxonomies ) {
 					$first_taxonomy			 = current( array_keys( $selected_terms_of_taxonomies ) );

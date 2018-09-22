@@ -97,6 +97,9 @@ function wpforms_install_addon() {
 	require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
 	require_once WPFORMS_PLUGIN_DIR . 'pro/includes/admin/class-install-skin.php';
 
+	// Do not allow WordPress to search/download translations, as this will break JS output.
+	remove_action( 'upgrader_process_complete', array( 'Language_Pack_Upgrader', 'async_upgrade' ), 20 );
+
 	// Create the plugin upgrader with our custom skin.
 	$installer = new Plugin_Upgrader( new WPForms_Install_Skin() );
 

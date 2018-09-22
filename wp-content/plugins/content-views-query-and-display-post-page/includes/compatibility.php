@@ -96,7 +96,7 @@ add_filter( 'pt_cv_field_content_full', 'cv_comp_plugin_cornerstone_core', 9, 3 
 function cv_comp_plugin_cornerstone_core( $args, $fargs, $this_post ) {
 	if ( cv_is_active_plugin( 'cornerstone' ) ) {
 		$cache = $this_post->cv_comp_cornerstone_content;
-		if ( empty( $cache ) || $cache[ 'expires' ] < time() ) {
+		if ( empty( $cache ) || ( isset( $cache[ 'expires' ] ) && $cache[ 'expires' ] < time() ) ) {
 			// Simulate the frontend, to get processed output by Cornerstone
 			@file_get_contents( add_query_arg( 'cv_comp_cs_content', 1, get_permalink( $this_post->ID ) ) );
 			// Get the processed content
@@ -241,6 +241,13 @@ function cv_comp_action_before_query() {
 	if ( function_exists( 'ksuce_exclude_categories' ) ) {
 		remove_filter( 'pre_get_posts', 'ksuce_exclude_categories' );
 	}
+
+	/** Fix: woo-event-manager plugin sets DESC order for all Views query
+	 * @since 2.0.3
+	 */
+	if ( function_exists( 'rc_modify_query_get_posts_by_date' ) ) {
+		remove_action( 'pre_get_posts', 'rc_modify_query_get_posts_by_date' );
+	}
 }
 
 /**
@@ -250,6 +257,7 @@ function cv_comp_action_before_query() {
  */
 function cv_comp_pagination_settings( $action, $view_settings ) {
 	global $cv_unique_id;
+	$cv_unique_id = ''; // reset to prevent using existing value of previous views
 	if ( $action === 'set' ) {
 		$key	 = $case	 = '';
 
@@ -313,59 +321,15 @@ function cv_comp_plugin_saoe() {
 	remove_filter( 'get_post_metadata', 'jr_saoe_get_post_metadata', 10 );
 }
 
-/** Redirect old /?vpage=
- * @since 2.0
- */
-add_action( 'init', 'cv_comp_common_redirect_vpage', 1 );
-function cv_comp_common_redirect_vpage() {
-	// The pagination variable name
-	if ( is_front_page() && !is_home() ) {
-		$pvar = 'paged';
-	} else if ( is_singular() ) {
-		$pvar = 'page';
-	} else {
-		$pvar = '_page';
-	}
-	$GLOBALS[ 'cv_page_var' ] = apply_filters( PT_CV_PREFIX_ . 'page_var', $pvar );
-
-	if ( !empty( $_GET[ 'vpage' ] ) && !headers_sent() ) {
-		$pagenum = absint( $_GET[ 'vpage' ] );
-		if ( $pagenum >= 1 ) {
-			$new_url = cv_comp_get_pagenum_link( $pagenum );
-			wp_safe_redirect( $new_url, 301 );
-			exit;
-		}
-	}
-}
-
-/** Compatible with Timeline layout which uses 'vpage'
+/** Compatible with Timeline layout which uses old param
  * @since 2.0
  */
 add_action( PT_CV_PREFIX_ . 'view_process_start', 'cv_comp_pro_timeline' );
 function cv_comp_pro_timeline() {
 	$pagenum = cv_comp_get_page_number();
 	if ( !empty( $pagenum ) ) {
-		$_GET[ 'vpage' ] = 'notempty'; /* not empty value is enough for compatibility */
+		$_GET[ 'vpage' ] = $pagenum;
 	}
-}
-
-/** Generate page numeric link for Normal pagination
- *
- * @param int $pagenum
- * @return string
- */
-function cv_comp_get_pagenum_link( $pagenum ) {
-	$pvar = $GLOBALS[ 'cv_page_var' ];
-	if ( '' != get_option( 'permalink_structure' ) && in_array( $pvar, array( 'page', 'paged' ) ) && !is_preview() ) {
-		global $wp_rewrite;
-		$link	 = get_permalink();
-		$extra	 = ($pvar === 'paged') ? trailingslashit( $wp_rewrite->pagination_base ) : '';
-		$link	 = user_trailingslashit( trailingslashit( $link ) . $extra . $pagenum );
-	} else {
-		$link = add_query_arg( $pvar, $pagenum );
-	}
-
-	return remove_query_arg( 'vpage', $link );
 }
 
 /** Get the page number for Normal pagination
@@ -373,12 +337,51 @@ function cv_comp_get_pagenum_link( $pagenum ) {
  * @return type
  */
 function cv_comp_get_page_number() {
-	$paged = @absint( $_GET[ '_page' ] );
-	if ( !$paged ) {
-		$paged = get_query_var( 'paged' );
+	$paged = null;
+
+	// Get old params
+	foreach ( array( 'vpage', '_page' ) as $op ) {
+		if ( !empty( $_GET[ $op ] ) ) {
+			$paged = absint( $_GET[ $op ] );
+		}
 	}
+
+	if ( !$paged ) {
+		$paged = get_query_var( PT_CV_PAGE_VAR );
+	}
+	// Static front page
 	if ( !$paged ) {
 		$paged = get_query_var( 'page' );
 	}
+
 	return $paged;
+}
+
+function cv_comp_pagination_remove_old_param( $link ) {
+	$link = remove_query_arg( array( 'vpage', '_page', 'page' ), $link );
+
+	// Visit /?pagevar=N, pagination links wrong
+	global $wp_rewrite;
+	if ( $wp_rewrite->using_permalinks() ) {
+		$link = remove_query_arg( PT_CV_PAGE_VAR, $link );
+	}
+
+	return $link;
+}
+
+add_action( 'init', 'cv_pretty_nonajax_pagination' );
+function cv_pretty_nonajax_pagination() {
+	add_rewrite_endpoint( PT_CV_PAGE_VAR, EP_ALL );
+
+	if ( false === get_option( 'cv_pretty_pagination_url' ) ) {
+		flush_rewrite_rules( false );
+		add_option( 'cv_pretty_pagination_url', 1 );
+	}
+}
+
+/** Prevent (no title) issue caused by other plugins */
+add_action( PT_CV_PREFIX_ . 'view_process_start', 'cv_comp_prevent_no_title' );
+function cv_comp_prevent_no_title() {
+	// title-remover plugin
+	remove_filter( 'the_title', 'wptr_supress_title', 10, 2 );
 }

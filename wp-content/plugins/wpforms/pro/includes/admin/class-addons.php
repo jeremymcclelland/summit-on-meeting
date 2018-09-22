@@ -31,7 +31,7 @@ class WPForms_Addons {
 	}
 
 	/**
-	 * Determing if the user is viewing the settings page, if so, party on.
+	 * Determine if the user is viewing the settings page, if so, party on.
 	 *
 	 * @since 1.0.0
 	 */
@@ -59,7 +59,7 @@ class WPForms_Addons {
 		wp_enqueue_script(
 			'jquery-matchheight',
 			WPFORMS_PLUGIN_URL . 'assets/js/jquery.matchHeight-min.js',
-			array( 'jquery'  ),
+			array( 'jquery' ),
 			'0.7.0',
 			false
 		);
@@ -88,27 +88,29 @@ class WPForms_Addons {
 		<div id="wpforms-admin-addons" class="wrap wpforms-admin-wrap">
 
 			<h1 class="page-title">
-				<?php _e( 'WPForms Addons', 'wpforms' ); ?>
-				<a href="<?php echo esc_url_raw( add_query_arg( array( 'wpforms_refresh_addons' => '1' ) ) ); ?> " class="add-new-h2 wpforms-btn-orange"><?php _e( 'Refresh Addons', 'wpforms' ); ?></a>
-				<input type="search" placeholder="<?php esc_html_e( 'Search Addons', 'wpforms' ); ?>" id="wpforms-admin-addons-search">
+				<?php esc_html_e( 'WPForms Addons', 'wpforms' ); ?>
+				<a href="<?php echo esc_url_raw( add_query_arg( array( 'wpforms_refresh_addons' => '1' ) ) ); ?>" class="add-new-h2 wpforms-btn-orange">
+					<?php esc_html_e( 'Refresh Addons', 'wpforms' ); ?>
+				</a>
+				<input type="search" placeholder="<?php esc_attr_e( 'Search Addons', 'wpforms' ); ?>" id="wpforms-admin-addons-search">
 			</h1>
 
 			<?php if ( empty( $this->addons ) ) : ?>
 
 				<div class="error notice">
-					<p><?php _e( 'There was an issue retrieving Addons for this site. Please click on the button above the refresh.', 'wpforms' ); ?></p>
+					<p><?php esc_html_e( 'There was an issue retrieving Addons for this site. Please click on the button above to refresh.', 'wpforms' ); ?></p>
 				</div>
 
 			<?php elseif ( ! empty( $errors ) ) : ?>
 
 				<div class="error notice">
-					<p><?php _e( 'In order to get access to Addons, you need to resolve your license key errors.', 'wpforms' ); ?></p>
+					<p><?php esc_html_e( 'In order to get access to Addons, you need to resolve your license key errors.', 'wpforms' ); ?></p>
 				</div>
 
 			<?php elseif ( empty( $type ) ) : ?>
 
 				<div class="error notice">
-					<p><?php _e( 'In order to get access to Addons, you need to verify your license key for WPForms.', 'wpforms' ); ?></p>
+					<p><?php esc_html_e( 'In order to get access to Addons, you need to verify your license key for WPForms.', 'wpforms' ); ?></p>
 				</div>
 
 			<?php else : ?>
@@ -116,7 +118,7 @@ class WPForms_Addons {
 				<?php if ( $refresh ) : ?>
 
 					<div class="updated notice">
-						<p><?php _e( 'Addons have successfully been refreshed.', 'wpforms' ); ?></p>
+						<p><?php esc_html_e( 'Addons have successfully been refreshed.', 'wpforms' ); ?></p>
 					</div>
 
 				<?php
@@ -149,7 +151,7 @@ class WPForms_Addons {
 
 							if ( 'basic' === $type ) :
 
-								$this->addon_grid( $this->addons, $type, array( 'basic' )  );
+								$this->addon_grid( $this->addons, $type, array( 'basic' ) );
 								$this->addon_grid( $this->addons, $type, array( 'plus', 'pro' ), true );
 
 							elseif ( 'plus' === $type ) :
@@ -179,14 +181,13 @@ class WPForms_Addons {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $addons
-	 * @param string $type_current
-	 * @param array $type_show
-	 * @param bool $unlock
+	 * @param array  $addons List of addons.
+	 * @param string $type_current License type user currently have.
+	 * @param array  $type_show License type to show.
+	 * @param bool   $unlock Whether to display unlock text or not.
 	 */
 	public function addon_grid( $addons, $type_current, $type_show, $unlock = false ) {
 
-		$count   = 0;
 		$plugins = get_plugins();
 
 		if ( $unlock ) {
@@ -212,7 +213,7 @@ class WPForms_Addons {
 		}
 
 		// Ultimate is the same level pro.
-		if ( $type_current === 'ultimate' ) {
+		if ( 'ultimate' === $type_current ) {
 			$type_current = 'pro';
 		}
 
@@ -304,8 +305,6 @@ class WPForms_Addons {
 
 			echo '</div>';
 
-			$count++;
-
 			if ( ! empty( $this->addons[ $id ] ) ) {
 				unset( $this->addons[ $id ] );
 			}
@@ -318,7 +317,7 @@ class WPForms_Addons {
 	 * @since 1.0.0
 	 *
 	 * @param string $slug The plugin slug.
-	 * @param array $plugins List of plugins.
+	 * @param array  $plugins List of plugins.
 	 *
 	 * @return string The plugin basename if found, else the plugin slug.
 	 */
@@ -335,4 +334,4 @@ class WPForms_Addons {
 	}
 }
 
-new WPForms_Addons;
+new WPForms_Addons();

@@ -7,5 +7,9 @@
 		select {
 			max-width: 100%;
 		}
+
+		input[readonly].readonly-active {
+			background-color: white;
+		}
 	}
 }

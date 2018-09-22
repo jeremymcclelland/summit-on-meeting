@@ -1324,6 +1324,18 @@ class PT_Content_Views_Pro_Admin extends PT_Content_Views_Admin {
 				),
 			),
 			array(
+				'label'		 => array(
+					'text' => '',
+				),
+				'params'	 => array(
+					array(
+						'type'		 => 'html',
+						'content'	 => sprintf( '<p class="text-muted" style="margin-top:-8px">%s</p>', __( 'This style does not work with Animation/Overlay', 'content-views-pro' ) ),
+					),
+				),
+				'dependence' => array( $prefix . 'thumbnail-style', 'img-shadow' ),
+			),
+			array(
 				'label'			 => array(
 					'text' => __( 'Border radius', 'content-views-pro' ),
 				),

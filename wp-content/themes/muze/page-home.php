@@ -19,7 +19,7 @@
 				<div class="small-12 columns">
 					<?php the_content(); ?>
 					<div class="home-page-flash">
-						Visit our<br />leasing center at<br /><span><a href="https://goo.gl/maps/zGs2KGdePPn" target="_blank">363<br />King Street, Charleston, SC</a></span>
+						Visit our<br />leasing center at<br /><span><a href="https://goo.gl/maps/nbUsDSS6CTp" target="_blank">363<br />King Street, Charleston, SC</a></span>
 					</div>
 				</div>
 			</div>
@@ -33,7 +33,7 @@
         ?>
 	</section>
 
-	<section class="pano image-background">
+	<section class="hidden pano image-background">
 		<div class="container row text-invert">
 			<div class="small-12 large-6 columns">
 				<h2><?php echo the_field('pano_headline'); ?></h2>
@@ -139,17 +139,21 @@
 		</div>
 	</section>
 
-	<section class="location no-padding-bottom">
+	<section class="location">
 		<div class="container row">
 			<div class="small-12 large-9 columns">
 				<h2><?php echo the_field('map_headline'); ?></h2>
 				<?php echo the_field('map_copy'); ?>
 			</div>
-			<div class="small-12 columns">
+			<div class="hidden small-12 columns">
 				<img class="map-flash" src="<?php echo get_template_directory_uri();?>/images/home-location-flash.png" />
 			</div>
 		</div>
-		<div id="map-canvas" class="map-canvas"></div>
+		<div id="map-canvas" class="hidden map-canvas"></div>
+	</section>
+
+	<section id="map-wrapper">
+		<?php get_sidebar('google-map'); ?>
 	</section>
 
 	<section class="pre-footer">
@@ -172,5 +176,5 @@
 </div>
 
 <?php endwhile; ?>
-<?php include('template-parts/map-build.php'); ?>
+<?php // include('template-parts/map-build.php'); ?>
 <?php get_footer(); ?>

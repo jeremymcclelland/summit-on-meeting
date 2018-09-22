@@ -166,7 +166,7 @@ if ( is_admin() && class_exists( 'PT_Content_Views_Admin' ) ) {
 						'type'	 => 'text',
 						'name'	 => $prefix . 'live-filter-default-text' . self::name_postfix( $prefix ),
 						'std'	 => '',
-						'desc'	 => __( 'Set text for the default option', 'content-views-pro' ),
+						'desc'	 => __( 'Change the default text', 'content-views-pro' ),
 					),
 				),
 				'dependence'	 => array( $prefix . 'live-filter-enable', 'yes' ),

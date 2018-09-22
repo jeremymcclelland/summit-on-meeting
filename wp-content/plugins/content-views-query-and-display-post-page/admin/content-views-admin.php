@@ -278,6 +278,10 @@ class PT_Content_Views_Admin {
 			// Remove style of theme Phlox
 			wp_dequeue_style( 'auxin-admin-style' );
 
+			// Theme trendy, plugin estatik pro
+			wp_dequeue_style( 'es-trendy-admin-style' );
+			wp_dequeue_style( 'es-admin-style' );
+
 			do_action( PT_CV_PREFIX_ . 'remove_unwanted_assets' );
 		}
 	}
@@ -309,7 +313,7 @@ class PT_Content_Views_Admin {
 		$user_role = current_user_can( 'administrator' ) ? 'administrator' : PT_CV_Functions::get_option_value( 'access_role', 'administrator' );
 
 		$this->plugin_screen_hook_suffix = add_menu_page(
-			__( 'Content Views Settings', 'content-views-query-and-display-post-page' ), __( 'Content Views', 'content-views-query-and-display-post-page' ), $user_role, $this->plugin_slug, array( $this, 'display_plugin_admin_page' ), '', '45.6'
+			__( 'Content Views Settings', 'content-views-query-and-display-post-page' ), _x( 'Content Views', 'Plugin name. Do not translate', 'content-views-query-and-display-post-page' ), $user_role, $this->plugin_slug, array( $this, 'display_plugin_admin_page' ), '', '45.6'
 		);
 
 		$this->plugin_sub_screen_hook_suffix[] = PT_CV_Functions::menu_add_sub(

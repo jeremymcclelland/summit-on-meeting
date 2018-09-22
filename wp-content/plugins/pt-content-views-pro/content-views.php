@@ -10,7 +10,7 @@
  * Plugin Name:       Content Views Pro
  * Plugin URI:        http://www.contentviewspro.com/
  * Description:       Premium addon of plugin "Content Views" (free on wordpress.org)
- * Version:           5.3.4.1
+ * Version:           5.3.4.2
  * Author:            CVSOFT LLC
  * Author URI:        http://www.contentviewspro.com/
  * Text Domain:       content-views-pro
@@ -24,7 +24,7 @@ if ( !defined( 'ABSPATH' ) ) {
 }
 
 // Define Constant
-define( 'PT_CV_VERSION_PRO', '5.3.4.1' );
+define( 'PT_CV_VERSION_PRO', '5.3.4.2' );
 define( 'PT_CV_REQUIRE_FREE', '2.0.2' );
 define( 'PT_CV_FILE_PRO', __FILE__ );
 define( 'PT_CV_PATH_PRO', plugin_dir_path( __FILE__ ) );

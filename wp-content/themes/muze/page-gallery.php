@@ -13,7 +13,7 @@
 
 	<?php include('template-parts/page-hero.php'); ?>
 	
-	<section class="pano-tour-container">
+	<section class="hidden pano-tour-container">
 		<div class="container row">
 			<div class="small-12 columns">
 				<?php the_content(); ?>

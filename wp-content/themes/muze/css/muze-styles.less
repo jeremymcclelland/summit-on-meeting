@@ -4,10 +4,18 @@
 @backgroundAccent: #F9F9F9;
 @textBase: #292E38;
 @textInvert: #FFFFFF;
-@accent: #04BBD8;
+@accent: #000000;
 @accentLight: #75E4EF;
 @pop: #F11C5F;
 
+@black: #000000;
+
+.hidden {
+	display: none;
+}
+.panel-collapsed {
+	color: @black !important;
+}
 .smooth-transition {
 	-webkit-transition: all 0.3s ease;
 	-moz-transition: all 0.3s ease;
@@ -47,7 +55,7 @@ body {
 	position: relative;
 }
 a:not([class]) {
-	color: @accent;
+	color: @black;
 	text-decoration: none;
 }
 a:not([class]):hover {
@@ -216,17 +224,21 @@ section.no-padding-bottom {
 }
 .btn:hover,
 .btn:focus {
-	background-color: rgba(10, 186, 215, 0.3);
-	color: @textBase;
+	background-color: @black;
+	color: #ffffff;
 }
 .btn.invert {
 	color: #FFFFFF;
 	border: 2px solid #FFFFFF;
 }
 .btn.blue {
-	color: @accent;
-	border: 2px solid @accent;
+	color: @black;
+	border: 2px solid @black;
 	padding: 12px 17px;
+
+	&:hover, &:focus {
+		color: #ffffff;
+	}
 }
 
 
@@ -290,10 +302,10 @@ section.no-padding-bottom {
 	input[type="email"],
 	input[type="tel"],
 	textarea {
-		background: #F0F8FB;
+		background: fade(@black, 10%);
 		border: 2px solid #FFFFFF;
 		width: 100%;
-		color: @textBase;
+		color: @black;
 		font-weight: 300;
 		border-radius: 0;
 		box-shadow: none;
@@ -309,7 +321,7 @@ section.no-padding-bottom {
 	input[type="tel"]:focus,
 	textarea:active,
 	textarea:focus {
-		border: 2px solid @accent;
+		border: 2px solid @black;
 		box-shadow: none;
 	}
 	textarea {
@@ -554,7 +566,7 @@ b, strong {
 				a {
 					border-bottom: 4px solid #FFFFFF;
 					font-weight: 700;
-    				background-color: #4b0f9842;
+    				background-color: lighten(@black, 10%);
 				}
 			}
 			li.has-subnav > ul.subnav {
@@ -653,7 +665,7 @@ b, strong {
 	    	font-weight: 500;
 	    }
 	    a:hover {
-	    	color: #79edff; 
+	    	color: lighten(@black, 70%); 
 	    }
 	}
 	.contact-nav-mobile {
@@ -965,6 +977,8 @@ b, strong {
 	.logo-tag {
 		font-size: 0.97rem;
 		color: @textBase;
+		max-width: 204px;
+		text-align: center;
 	}
 	.footer-heading {
 		color: inherit;
@@ -995,7 +1009,7 @@ b, strong {
     		.smooth-transition;
     	}
     	.fa:hover {
-    		color: fade(@accent, 60%);
+    		color: fade(@black, 60%);
     	}
     }
 	.btn.blue {
@@ -1061,9 +1075,9 @@ b, strong {
 		right: 0;
 		width: 305px;
 		height: 305px;
-		background-color: @pop;
+		background-color: fade(#ffffff, 90%);
 		border-radius: 50%;
-		color: #FFFFFF;
+		color: @black;
 		text-transform: uppercase;
 		text-align: center;
 		padding: 60px 5px;
@@ -1081,7 +1095,8 @@ b, strong {
 		    line-height: 2.3rem;
 		}
 		a {
-			color: #FFFFFF;
+			color: @black;
+			text-decoration: none;
 		}
 	}
 }
@@ -1115,6 +1130,7 @@ b, strong {
 	top: -195px;
 	right: 0;
 	z-index: 600;
+	max-width: 276px;
 }
 
 /* XLarge & Up */
@@ -1197,7 +1213,7 @@ b, strong {
 			position: absolute;
 			width: 100%;
 			height: 100%;
-			background-color: rgba(23, 189, 217, 0.7);
+			background-color: fade(@black, 70%);
 			text-align: center;
 			opacity: 0;
 			.smooth-transition;
@@ -1213,7 +1229,7 @@ b, strong {
 			}
 			.expand {
 				background-color: #FFFFFF;
-				background-image: url('../images/blue-plus.png');
+				background-image: url('../images/black-plus.png');
 				background-repeat: no-repeat;
 				background-position: center;
 				width: 50px;
@@ -1383,11 +1399,11 @@ b, strong {
 	section.pre-footer {
 		h3 {
 			.fa {
-				color: @accent;
+				color: lighten(@black, 50%);
 			}
 			span {
 				font-size: 1rem;
-				color: @accent;
+				color: lighten(@black, 50%);
 			}
 		}
 	}
@@ -1940,7 +1956,7 @@ b, strong {
 		}
 	}
 	.pre-map {
-		background-color: #F0F8FB;
+		background-color: fade(@black, 10%);
 		padding-top: 27px;
 	}
 	section.map {
@@ -2101,6 +2117,10 @@ b, strong {
 
 /* ************************************** Blog Archive and Singles ************************************** */
 
+.cvp-live-filter .cvp-label {
+	display: none;
+}
+
 .blog-archive {
 	select {
 	  width: 303px;
@@ -2109,7 +2129,7 @@ b, strong {
 	  font-weight: 400;
 	  text-transform: uppercase;
 	  color: @accent;
-	  background-color: #f2f8fb;
+	  background-color: fade(@black, 10%);
 	  border: none;
 	  height: 52px;
 	  margin: -20px 30px 20px 0;

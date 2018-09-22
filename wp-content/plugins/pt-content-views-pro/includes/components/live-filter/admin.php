@@ -176,7 +176,7 @@ if ( is_admin() && class_exists( 'PT_Content_Views_Admin' ) ) {
 											'type'	 => 'text',
 											'name'	 => $prefix . 'default-text',
 											'std'	 => '',
-											'desc'	 => __( 'Set text for the default option', 'content-views-pro' ),
+											'desc'	 => __( 'Change the default text', 'content-views-pro' ),
 										),
 									),
 								),

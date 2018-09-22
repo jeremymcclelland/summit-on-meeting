@@ -471,7 +471,7 @@ if ( !class_exists( 'PT_CV_Functions' ) ) {
 			$links				 = array();
 			$taxonomy_terms		 = array();
 			$post_terms			 = array();
-			$taxonomies			 = get_taxonomies( '', 'names' );
+			$taxonomies			 = get_taxonomies( array( 'public' => true ), 'names' );
 			$taxonomies_to_show	 = apply_filters( PT_CV_PREFIX_ . 'taxonomies_to_show', $taxonomies );
 			$post_id			 = is_object( $post ) ? $post->ID : $post;
 			$terms				 = wp_get_object_terms( $post_id, $taxonomies );
@@ -649,6 +649,7 @@ if ( !class_exists( 'PT_CV_Functions' ) ) {
 
 			$content_type	 = PT_CV_Functions::setting_value( PT_CV_PREFIX . 'content-type', $view_settings );
 			$view_type		 = PT_CV_Functions::setting_value( PT_CV_PREFIX . 'view-type', $view_settings );
+			$view_type		 = apply_filters( PT_CV_PREFIX_ . 'view_layout', $view_type, $view_id, $view_settings, $sc_params );
 			$current_page	 = self::get_current_page( $pargs );
 
 			$pt_cv_glb[ $pt_cv_id ][ 'content_type' ]	 = $content_type;
@@ -715,9 +716,13 @@ if ( !class_exists( 'PT_CV_Functions' ) ) {
 					$max_num_pages	 = ceil( $total_items / $items_per_page );
 					$max_num_pages	 = (int) $max_num_pages;
 
+					$pt_cv_glb[ $pt_cv_id ][ 'pagination_info' ] = compact( "total_items", "max_num_pages", "current_page" );
+
 					// Output pagination
 					if ( $max_num_pages > 1 ) {
-						cv_comp_pagination_settings( 'set', $view_settings );
+						if ( $dargs[ 'pagination-settings' ][ 'type' ] === 'ajax' ) {
+							cv_comp_pagination_settings( 'set', $view_settings );
+						}
 
 						$html .= "\n" . PT_CV_Html::pagination_output( $max_num_pages, $current_page, $pt_cv_id );
 					} else {
@@ -731,7 +736,7 @@ if ( !class_exists( 'PT_CV_Functions' ) ) {
 
 			do_action( PT_CV_PREFIX_ . 'view_process_end' );
 
-			return $html;
+			return apply_filters( PT_CV_PREFIX_ . 'view_html', $html );
 		}
 
 		/**
@@ -777,6 +782,7 @@ if ( !class_exists( 'PT_CV_Functions' ) ) {
 				$_text			 = PT_CV_Html::no_post_found();
 				$content_items[] = sprintf( '<div class="%s">%s</div>', esc_attr( $_class ), $_text );
 				$empty_result	 = true;
+				PT_CV_Functions::set_global_variable( 'no_post_found', $empty_result );
 			}
 
 			self::reset_query();
@@ -1242,25 +1248,6 @@ if ( !class_exists( 'PT_CV_Functions' ) ) {
 		}
 
 		/**
-		 * Generate pagination button for each page
-		 * @param string $class     Class name
-		 * @param string $this_page Page number
-		 * @param string $label     Page label
-		 */
-		static function pagination_generate_link( $class, $this_page, $label = '' ) {
-			$data_page = '';
-			if ( !$label ) {
-				$label		 = $this_page;
-				$data_page	 = sprintf( 'data-page="%s"', absint( $this_page ) );
-			}
-
-			$html	 = sprintf( '<a %s href="%s">%s</a>', $data_page, cv_comp_get_pagenum_link( $this_page ), $label );
-			$class	 = $class ? sprintf( 'class="%s"', esc_attr( $class ) ) : '';
-
-			return sprintf( '<li %s>%s</li>', $class, $html );
-		}
-
-		/**
 		 * Pagination output
 		 *
 		 * @param int $total_pages   Total pages
@@ -1271,53 +1258,52 @@ if ( !class_exists( 'PT_CV_Functions' ) ) {
 			if ( $total_pages == 1 )
 				return '';
 
-			$pages_to_show = apply_filters( PT_CV_PREFIX_ . 'pages_to_show', $pages_to_show );
-
-			// Define labels
-			$labels = apply_filters( PT_CV_PREFIX_ . 'pagination_label', array(
-				'prev'			 => '&lsaquo;',
-				'next'			 => '&rsaquo;',
-				'first'			 => '&laquo;',
-				'last'			 => '&raquo;',
-				'only_nextprev'	 => false,
+			$pages_to_show	 = apply_filters( PT_CV_PREFIX_ . 'pages_to_show', $pages_to_show );
+			$labels			 = apply_filters( PT_CV_PREFIX_ . 'pagination_label', array(
+				'prev'	 => '&lsaquo;',
+				'next'	 => '&rsaquo;',
 				) );
 
-			$start	 = ( ( $current_page - $pages_to_show ) > 0 ) ? $current_page - $pages_to_show : 1;
-			$end	 = ( ( $current_page + $pages_to_show ) < $total_pages ) ? $current_page + $pages_to_show : $total_pages;
+			$static_frontpage = (is_front_page() && !is_home());
 
-			$html			 = '';
-			$compared_page	 = 1;
+			global $wp_filter, $wp_rewrite;
+			$filters_bak = $wp_filter;
+			remove_all_filters( 'paginate_links' );
+			remove_all_filters( 'get_pagenum_link' );
+			add_filter( 'paginate_links', 'cv_comp_pagination_remove_old_param' );
 
-			// First
-			if ( !$labels[ 'only_nextprev' ] ) {
-				if ( $start > $compared_page ) {
-					$html .= self::pagination_generate_link( '', $compared_page, $labels[ 'first' ] );
+			$pb_bak						 = $wp_rewrite->pagination_base;
+			$wp_rewrite->pagination_base = $static_frontpage ? $pb_bak : PT_CV_PAGE_VAR;
+
+			$params = array(
+				'current'	 => $current_page,
+				'total'		 => $total_pages,
+				'type'		 => 'array',
+				'prev_text'	 => $labels[ 'prev' ],
+				'next_text'	 => $labels[ 'next' ],
+				'mid_size'	 => $pages_to_show ? intval( $pages_to_show ) / 2 : 2,
+			);
+			if ( !$wp_rewrite->using_permalinks() && !$static_frontpage ) {
+				$params[ 'format' ] = '?' . PT_CV_PAGE_VAR . '=%#%';
+			}
+
+			$links = paginate_links( $params );
+
+			$wp_filter					 = $filters_bak;
+			$wp_rewrite->pagination_base = $pb_bak;
+
+			$html = '';
+			foreach ( $links as $link ) {
+				$class	 = strpos( $link, 'current' ) !== false ? 'class="active"' : '';
+				$link	 = preg_replace( '/<span[^>]*>/', '<a href="#">', $link );
+				$link	 = str_replace( '</span>', '</a>', $link );
+				$link	 = str_replace( array( 'page-numbers', 'prev', 'next' ), '', $link );
+
+				if ( get_query_var( 'paged' ) && !$static_frontpage && $wp_rewrite->using_permalinks() ) {
+					$link = preg_replace( "/\/page\/\d+/", '', $link );
 				}
-			}
 
-			// Prev
-			if ( $current_page > $compared_page ) {
-				$html .= self::pagination_generate_link( '', $current_page - 1, $labels[ 'prev' ] );
-			}
-
-			// Show number
-			if ( !$labels[ 'only_nextprev' ] ) {
-				for ( $i = $start; $i <= $end; $i++ ) {
-					$html .= self::pagination_generate_link( ( $current_page == $i ) ? 'active' : '', $i );
-				}
-			}
-
-			$compared_page = $total_pages;
-			// Next
-			if ( $current_page < $total_pages ) {
-				$html .= self::pagination_generate_link( '', $current_page + 1, $labels[ 'next' ] );
-			}
-
-			// Last
-			if ( !$labels[ 'only_nextprev' ] ) {
-				if ( $end < $compared_page ) {
-					$html .= self::pagination_generate_link( '', $compared_page, $labels[ 'last' ] );
-				}
+				$html .= "<li $class>" . $link . "</li>\n\t";
 			}
 
 			return $html;

@@ -3,7 +3,7 @@ Author: CVSOFT LLC
 Website: http://www.contentviewspro.com/
 Requires at least: 3.3
 Tested up to: 4.9.9
-Stable tag: 5.3.4.1
+Stable tag: 5.3.4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,6 +46,15 @@ Please check here http://www.contentviewspro.com/faq/
 
 
 == Changelog ==
+
+= 5.3.4.2 =
+* Fix:
+- Display issue of live filter dropdown type occurred since version 5.3.4.1
+- Compatible fix: filter past events of "The Events Calendar" plugin not work because that plugin prevented past events from showing
+
+* Update:
+- Able to set limit (total number of posts to show) when replacing layout
+- Add/adjust some description texts
 
 = 5.3.4.1 =
 * Fix: Malware found in Mobile_Detect.php

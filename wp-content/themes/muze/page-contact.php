@@ -77,13 +77,13 @@
 				</p>
 			</div>
 			<div class="small-12 large-5 columns">
-				<p><strong>Muze:</strong> 2100 Nueces St, Austin TX</p>
+				<p><strong>Summit Place:</strong> 530 Meeting St., Charleston, SC</p>
 			</div>
 		</div>
 	</div>
 
-	<section class="map no-padding-bottom no-padding-top">
-		<div id="map-canvas" class="map-canvas"></div>
+	<section id="map-wrapper">
+		<?php get_sidebar('google-map'); ?>
 	</section>
 
 </div>

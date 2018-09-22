@@ -451,7 +451,7 @@ PT_CV_Functions::view_submit();
 													'type'	 => 'text',
 													'name'	 => 's',
 													'std'	 => '',
-													'desc'	 => __( 'Enter keyword to searching for posts', 'content-views-query-and-display-post-page' ) . apply_filters( PT_CV_PREFIX_ . 'searchby_keyword_desc', '' ) . '<br>' . __( 'It will search keyword in title, excerpt, content of posts', 'content-views-query-and-display-post-page' ),
+													'desc'	 => __( 'Enter keyword to searching for posts', 'content-views-query-and-display-post-page' ) . apply_filters( PT_CV_PREFIX_ . 'searchby_keyword_desc', '' ) . '.<br>' . __( 'It will search keyword in title, excerpt, content of posts', 'content-views-query-and-display-post-page' ),
 												),
 											),
 										) ),
@@ -571,6 +571,23 @@ PT_CV_Functions::view_submit();
 												'std'		 => PT_CV_Functions::array_get_first_key( PT_CV_Values::layout_format() ),
 											),
 										),
+									),
+									array(
+										'label'			 => array(
+											'text' => '',
+										),
+										'extra_setting'	 => array(
+											'params' => array(
+												'width' => 12,
+											),
+										),
+										'params'		 => array(
+											array(
+												'type'		 => 'html',
+												'content'	 => sprintf( '<p class="text-muted" style="margin-top: -8px">%s.</p>', __( 'It requires enough horizontal space. You might reduce <code>Items Per Row</code> above if available, or select smaller thumbnail size below', 'content-views-query-and-display-post-page' ) ),
+											),
+										),
+										'dependence'	 => array( 'layout-format', '2-col' ),
 									),
 									array(
 										'label'			 => array(

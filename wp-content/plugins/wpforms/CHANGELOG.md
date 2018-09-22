@@ -1,10 +1,23 @@
 # Change Log
 All notable changes to this project will be documented in this file, formatted via [this recommendation](http://keepachangelog.com/).
 
+## [1.4.9] - 2018-09-18
+### Added
+- Pirate Forms importer.
+
+### Changed
+- Some form builder tooltips to contain documentation links.
+
+### Fixed
+- Form builder javascript conflict with jQuery non-conflict mode.
+- RTL issue with Phone field when using input masks.
+- PHP Notice from WPForms widget.
+- Incorrect markup around Addons submenu item.
+
 ## [1.4.8.1] - 2018-08-21
 ### Fixed
 - Certain confirmation settings, before 1.4.8, not displaying correctly in the form builder.
-- Compatiblity issue with MySQL `Strict_Trans_Tables` mode (again).
+- Compatibility issue with MySQL `Strict_Trans_Tables` mode (again).
 
 ## [1.4.8] - 2018-08-28
 ### Added
