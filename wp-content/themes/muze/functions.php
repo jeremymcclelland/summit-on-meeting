@@ -125,3 +125,9 @@ function my_acf_init() {
 }
 
 add_action('acf/init', 'my_acf_init');
+
+if( function_exists('acf_add_options_page') ) {
+  
+  acf_add_options_page();
+  
+}
