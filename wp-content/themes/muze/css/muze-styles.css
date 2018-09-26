@@ -985,15 +985,15 @@ strong {
 .homepage-hero .home-page-flash {
   position: absolute;
   right: 0;
-  width: 305px;
-  height: 305px;
+  width: 275px;
+  height: 275px;
   background-color: rgba(255, 255, 255, 0.9);
   border-radius: 50%;
   color: #000000;
   text-transform: uppercase;
   text-align: center;
   padding: 60px 5px;
-  font-size: 1.35rem;
+  font-size: 1rem;
   line-height: 1.8rem;
   font-weight: 200;
   -webkit-box-shadow: 10px 10px 29px -9px rgba(0, 0, 0, 0.75);
@@ -1003,7 +1003,7 @@ strong {
   font-weight: 600;
   margin-top: 15px;
   display: block;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   line-height: 2.3rem;
 }
 .homepage-hero .home-page-flash a {
@@ -1057,6 +1057,7 @@ strong {
     margin-top: 80px;
   }
   .homepage-hero .home-page-flash {
+    display: none;
     width: 240px;
     height: 240px;
     padding: 50px 5px;

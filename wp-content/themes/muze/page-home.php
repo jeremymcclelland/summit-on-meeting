@@ -19,7 +19,7 @@
 				<div class="small-12 columns">
 					<?php the_content(); ?>
 					<div class="home-page-flash">
-						Visit our<br />leasing center at<br /><span><a href="https://goo.gl/maps/nbUsDSS6CTp" target="_blank">363<br />King Street, Charleston, SC</a></span>
+						Visit our<br />leasing center at<br /><span><a href="https://goo.gl/maps/nbUsDSS6CTp" target="_blank">363 King Street, Charleston, SC</a></span>
 					</div>
 				</div>
 			</div>
@@ -115,7 +115,15 @@
 		</div>
 	</section>
 
-	<section class="amenities image-background">
+			<?php
+
+				$amenities_background_image = get_field('amenities_background_image');
+				$image_left = get_field('image_left');
+				$image_right = get_field('image_right');
+
+			?>
+
+	<section class="amenities image-background" style="background: url(<?php echo $amenities_background_image; ?>) center center;">
 		<div class="container row text-invert">
 			<div class="small-12 large-7 columns">
 				<h2><?php echo the_field('amenities_headline'); ?></h2>
@@ -131,10 +139,10 @@
 	<section class="amenities-images no-padding-bottom no-padding-top hide-small-and-down">
 		<div class="row collapse">
 			<div class="small-12 medium-6 columns">
-				<img class="amenity-img shift-left" src="<?php echo get_template_directory_uri();?>/images/home-pool.jpg" />
+				<img class="amenity-img shift-left" src="<?php echo $image_left; ?>" />
 			</div>
 			<div class="small-12 medium-6 columns">
-				<img class="amenity-img shift-right" src="<?php echo get_template_directory_uri();?>/images/home-lounge2.jpg" />
+				<img class="amenity-img shift-right" src="<?php echo $image_right; ?>" />
 			</div>
 		</div>
 	</section>

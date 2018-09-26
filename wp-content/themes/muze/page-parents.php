@@ -24,7 +24,7 @@
 	<section class="tabbed-content no-padding-bottom">
 		<div class="container row">
 			<div class="small-12 large-8 columns">
-				<h2>Learn about the Muze below.</h2>
+				<h2>Learn about the Summit Place below.</h2>
 			</div>
 			<div class="hidden small-12 large-4 columns">
 				<a href="<?php echo get_page_link( get_page_by_title( 'S.M.A.R.T. Housing' )->ID ); ?>" class="btn" href="">WHAT IS S.M.A.R.T. HOUSING?</a>
