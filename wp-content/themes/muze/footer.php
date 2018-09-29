@@ -24,6 +24,9 @@
                             $zip = of_get_option('leasing_zip');
                             $pay_rent = of_get_option('pay_rent');
 
+                            $footer_lease_now_link = get_field('footer_lease_now_link', 'options');
+
+
                             if ($address) {
                                 echo '	<p>' . $address . ', ' . $city . ' ' . $state . ' ' . $zip . '</p>';
                             }
@@ -31,8 +34,8 @@
                             if ($pay_rent) {
                             	echo '	<a href="' . $pay_rent . '" class="btn blue hide-medium-and-down">Pay Rent</a>
                         				<a href="'. get_page_link( get_page_by_title( 'Apply' )->ID ) .'" class="btn blue hide-medium-and-down">Apply Now</a>';
-                            } else {
-                            	echo '	<a target="_blank" href="https://themuzeapts.prospectportal.com/Apartments/module/application_authentication/" class="btn blue hide-medium-and-down">Lease Now</a>';
+                            } elseif( $footer_lease_now_link ) {
+                            	echo '	<a target="_blank" href="' . $footer_lease_now_link . '" class="btn blue hide-medium-and-down">Lease Now</a>';
                             }
                         ?>
 					</div>
