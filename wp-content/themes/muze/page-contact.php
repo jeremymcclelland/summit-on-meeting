@@ -46,7 +46,13 @@
 	                        echo '	<div class="info-block small-12 medium-4 large-12 columns">
 	                        			<p class="primary-h4">Phone:</p>
 	                        			<p><a href="tel:' . $number . '">' . $number . '</a></p>
-	                        		</div>';
+	                        		</div>
+
+	                        		<div class="info-block small-12 medium-4 large-12 columns">
+	                        			<p class="primary-h4">Email:</p>
+	                        			<p><a href="mailto:summitplace@achliving.com">summitplace@achliving.com</a></p>
+	                        		</div>
+	                        		';
 	                    }
 
 	                    if ($hours) {

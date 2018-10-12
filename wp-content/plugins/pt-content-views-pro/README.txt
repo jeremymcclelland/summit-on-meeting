@@ -3,7 +3,7 @@ Author: CVSOFT LLC
 Website: http://www.contentviewspro.com/
 Requires at least: 3.3
 Tested up to: 4.9.9
-Stable tag: 5.3.4.2
+Stable tag: 5.3.4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,6 +46,10 @@ Please check here http://www.contentviewspro.com/faq/
 
 
 == Changelog ==
+
+= 5.3.4.3 =
+* Fix notice and warning in PHP 7.1, 7.2 in some edge cases
+* Improve the compatible fix with "The Events Calendar" plugin in previous version
 
 = 5.3.4.2 =
 * Fix:

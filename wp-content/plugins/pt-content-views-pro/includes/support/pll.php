@@ -51,7 +51,7 @@ function cvp_pll_parse_query( $query ) {
 	$post_type = PT_CV_Functions::admin_current_post_type();
 	if ( $post_type === PT_CV_POST_TYPE && cvp_pll_is_activated() ) {
 		$screen = get_current_screen();
-		if ( $screen->id === PT_CV_POST_TYPE ) {
+		if ( isset( $screen->id ) && $screen->id === PT_CV_POST_TYPE ) {
 			remove_action( 'parse_query', array( 'PLL_Admin_Filters_Post', 'parse_query' ), 10 );
 		}
 	}

@@ -840,10 +840,10 @@ if ( !class_exists( 'PT_CV_Functions_Pro' ) ) {
 
 			if ( !empty( $_POST[ 'data' ] ) ) {
 				// Extract post data
-				parse_str( $_POST[ 'data' ] );
+				parse_str( $_POST[ 'data' ], $param );
 
 				// Show View output
-				$posts = self::search_by_title( $search_title, $post_type );
+				$posts = self::search_by_title( $param[ 'search_title' ], $param[ 'post_type' ] );
 				echo json_encode( $posts );
 			}
 
@@ -890,7 +890,7 @@ if ( !class_exists( 'PT_CV_Functions_Pro' ) ) {
 		}
 
 		// Modify WP query by adding "title LIKE" sub query
-		static function search_post_by_title_filter( $where, &$wp_query ) {
+		static function search_post_by_title_filter( $where, $wp_query ) {
 			global $wpdb;
 
 			$search_term = $wp_query->get( 'cvp_search_title' );

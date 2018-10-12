@@ -1,7 +1,7 @@
 <div style="float:right">
-	<a class="cvpspeca" href="https://www.contentviewspro.com/forums/?utm_source=client&utm_medium=settings_page&utm_campaign=toplinks" target="_blank">Forums</a>
-	<a class="cvpspeca" href="https://www.contentviewspro.com/contact/?utm_source=client&utm_medium=settings_page&utm_campaign=toplinks">Contact us</a>
-	<a class="cvpspeca" href="http://docs.contentviewspro.com/?utm_source=client&utm_medium=settings_page&utm_campaign=toplinks" target="_blank">Documentation</a>
+	<a class="cvpspeca" href="https://www.contentviewspro.com/forums/?utm_source=pro-plugin&utm_medium=referral&utm_campaign=settings-page" target="_blank">Forums</a>
+	<a class="cvpspeca" href="https://www.contentviewspro.com/contact/?utm_source=pro-plugin&utm_medium=referral&utm_campaign=settings-page">Contact us</a>
+	<a class="cvpspeca" href="http://docs.contentviewspro.com/?utm_source=pro-plugin&utm_medium=referral&utm_campaign=settings-page" target="_blank">Documentation</a>
 </div>
 
 <style>

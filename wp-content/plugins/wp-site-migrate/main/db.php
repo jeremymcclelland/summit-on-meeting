@@ -35,9 +35,13 @@ class WPEDb {
 		return $wpdb->get_var($query, $col, $row);
 	}
 
+	function tableName($table) {
+		return $table[0];
+	}
+
 	function showTables() {
 		$tables = $this->getResult("SHOW TABLES", ARRAY_N);
-		return array_map(create_function('$a', 'return $a[0];'), $tables);
+		return array_map(array($this, 'tableName'), $tables);
 	}
 
 	function showTableStatus() {

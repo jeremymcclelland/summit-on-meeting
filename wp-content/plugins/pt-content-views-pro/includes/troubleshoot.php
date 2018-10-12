@@ -41,14 +41,13 @@ function cvp_troubleshoot_action___query( $function ) {
 	if ( function_exists( 'wctm_pre_get_posts_query' ) ) {
 		$function( 'pre_get_posts', 'wctm_pre_get_posts_query' );
 	}
+}
 
-	/** Fix: The Events Calendar with WPML (when suppress filter = false), the event plugin injects code to show only upcoming events,
-	 * which causes the View to show past events doesn't work
-	 * @since 5.3.4
-	 */
-	if ( class_exists( 'Tribe__Events__Query' ) && method_exists( 'Tribe__Events__Query', 'pre_get_posts' ) ) {
-		$function( 'pre_get_posts', array( 'Tribe__Events__Query', 'pre_get_posts' ), 50 );
-	}
+/** Fix: The Events Calendar with WPML (when suppress filter = false), the event plugin adds filters which modify View result */
+add_filter( PT_CV_PREFIX_ . 'query_parameters', 'cvp_comp_plugin_the_events_calendar', 9999 );
+function cvp_comp_plugin_the_events_calendar( $args ) {
+	$args[ 'tribe_remove_date_filters' ] = true;
+	return $args;
 }
 
 add_action( PT_CV_PREFIX_ . 'do_replace_layout', 'cvp_troubleshoot_do_replace_layout' );

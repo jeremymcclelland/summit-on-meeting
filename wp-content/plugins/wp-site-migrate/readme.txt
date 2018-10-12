@@ -78,6 +78,9 @@ That's easy! [Signup here](http://wpengine.com/plans/).
 2. BlogVault dashboard showing live updates.
 
 == Changelog ==
+= 1.76 =
+* Removing create_funtion for PHP 7.2 compatibility
+
 = 1.72 =
 * Adding Misc Callback
 

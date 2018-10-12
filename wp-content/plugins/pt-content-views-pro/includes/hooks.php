@@ -155,7 +155,7 @@ if ( !class_exists( 'PT_CV_Hooks_Pro' ) ) {
 				$args[ PT_CV_PREFIX . 'font-color-more' ]				 = '#ffffff';
 
 				$args[ PT_CV_PREFIX . 'font-weight-title' ] = 'bold';
-			} else if ( version_compare( $view_version, PT_CV_VERSION_PRO ) === -1 && apply_filters( PT_CV_PREFIX_ . 'backward_360', true ) ) {
+			} else if ( $view_version && version_compare( $view_version, PT_CV_VERSION_PRO ) === -1 && apply_filters( PT_CV_PREFIX_ . 'backward_360', true ) ) {
 				if ( !isset( $args[ PT_CV_PREFIX . 'advanced-settings' ] ) ) {
 					$args[ PT_CV_PREFIX . 'advanced-settings' ] = array();
 				}
